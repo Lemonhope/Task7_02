@@ -1,7 +1,11 @@
 package Task7_02;
 
-public interface DictionaryInterface<Type, Type2>{
-    void add(Type originWord, Type2 translatedWord);
-    Type2 getTranslation(Type originWord);
-    int getWordsCount();
+public class ObjectDictionary<Type>{
+    public Type origin;
+    public Type translation;
+
+    public ObjectDictionary() {
+        this.origin = (Type) new Object();
+        this.translation = (Type) new Object();
+    }
 }
