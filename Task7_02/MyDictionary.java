@@ -1,41 +1,41 @@
-
 package Task7_02;
 
 import java.util.Collections;
 
-public class MyDictionary <Type, Type2> implements DictionaryInterface<Type, Type2>{
-    private Type[] originWord;
-    private Type2[] translatedWord;
-    private final int defaultCapacity=10;
+public class MyDictionary <Type> implements DictionaryInterface<Type>{
+
+    private ObjectDictionary<Type> dictionary[];
+    private static final int defaultCapacity=10;
     private int size;
 
     public MyDictionary() {
-        this.originWord= (Type[]) new Object[defaultCapacity];
-        this.translatedWord= (Type2[]) new Object[defaultCapacity];
+        this.dictionary = new ObjectDictionary[defaultCapacity];
+        for (int i=0;i<defaultCapacity;i++) {
+            this.dictionary[i]=new ObjectDictionary<>();
+        }
         size=0;
     }
 
     @Override
-    public void add(Type origWord, Type2 transWord) {
+    public void add(Type origWord, Type transWord) {
         size++;
         if (size > defaultCapacity) {
-            Type[] newOrig = (Type[]) new Object[size+size/2];
-            Type2[] newTrans = (Type2[]) new Object[size+ size/2];
-            System.arraycopy(this.originWord, 0, newOrig, 0, size-1);
-            System.arraycopy(this.translatedWord, 0, newTrans, 0, size-1);
-            this.originWord=newOrig;
-            this.translatedWord=newTrans;
+            ObjectDictionary[] newDict = new ObjectDictionary[size+ size/2];
+            System.arraycopy(this.dictionary, 0, newDict, 0, size-1);
+            this.dictionary = newDict;
         }
-        this.originWord[size - 1] = origWord;
-        this.translatedWord[size - 1] = transWord;
+
+        //System.out.println(dictionary.length);
+        this.dictionary[size - 1].origin = origWord;
+        this.dictionary[size - 1].translation = transWord;
 
     }
     @Override
-    public Type2 getTranslation(Type source) {
+    public Type getTranslation(Type source) {
         int index;
         for(index=0; index < this.size; index++){
-            if(source == originWord[index]){
-                return translatedWord[index];
+            if(source == dictionary[index].origin){
+                return (Type) dictionary[index].translation;
             }
         }
         System.out.println("No word found in dictionary.");
