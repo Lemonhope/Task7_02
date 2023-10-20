@@ -2,7 +2,7 @@ package Task7_02;
 
 public class Main {
     public static void main(String[] args) {
-        MyDictionary<String, String> dictionary=new MyDictionary<>();
+        MyDictionary<String> dictionary=new MyDictionary<>();
         dictionary.add("rainbow", "веселка");
         dictionary.add("ice","лід");
         dictionary.add("meat","м'ясо");
